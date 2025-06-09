@@ -164,7 +164,7 @@ echo ""
 # with TinyLlama Chat model as requested
 
 print_info "Starting Control Vector Experiments..."
-print_info "Running gpt2 with experiments 1 and 2"
+print_info "Running gpt2 with experiments 1, 2 and 4"
 
 # Check if we have the required Python dependencies
 print_info "Checking Python dependencies..."
@@ -178,14 +178,14 @@ python3 -c "import torch, transformers, sklearn, numpy" 2>/dev/null || {
 cd "$SCRIPT_DIR"
 
 print_info "Executing command:"
-echo "python3 experiments.py --model gpt2--experiments 1 2 --log-level $LOG_LEVEL --log-dir $LOG_DIR"
+echo "python3 experiments.py --model gpt2 --experiments 1 2 4 --log-level $LOG_LEVEL --log-dir $LOG_DIR"
 echo ""
 
 # Run the experiment
 # "TinyLlama/TinyLlama-1.1B-Chat-v1.0" 
 if python3 experiments.py \
-    --model "gpt2"\
-    --experiments 1 2 \
+    --model "gpt2" \
+    --experiments 1 2 4 \
     --log-level "$LOG_LEVEL" \
     --log-dir "$LOG_DIR"; then
     
@@ -202,10 +202,11 @@ if python3 experiments.py \
     print_info "Experiment Summary:"
     echo "  ✅ Experiment 1: Layer-Wise Token Trajectory Stabilization"
     echo "  ✅ Experiment 2: Entropy-Guided Control Vector Calibration"
+    echo "  ✅ Experiment 4: Head-Cluster Extraction for Semantic Control"
     echo ""
     print_info "Next steps:"
     echo "  - Review the log file for detailed results"
-    echo "  - Run additional experiments: $0 --experiments 3 4 5"
+    echo "  - Run additional experiments: $0 --experiments 3 5"
     echo "  - Try different models: $0 --model gpt2-medium"
     
 else
